@@ -27,15 +27,14 @@ public class SQLiteManager implements DBManager{
    	}
 
    	public Object[] select(String database_table, String[] columns, String where){
-   		/* 
+   		/** 
 		* Selects values from a database table
 		*
-		* @params
-		* String database_table: the name of the database table
-		* String[] columns: name of the columns to fetch
 		* 
-		* @returns 
-		* Object[] 
+		* @param database_table  name of the database table
+		* @param columns array of column names to fetch
+		* 
+		* @return Object[] 
    		*/
    		return new Object[0];
    	}
