@@ -18,6 +18,58 @@ public class Event{
 		date = d;
 		tickets = t;
 		ageRestriction = a;
+		comedians = new ArrayList<Comedian>();
+	}
+
+	/**
+	* Returns the title of the event.
+	* @return 	title of the event.	
+	*/
+	public String title(){
+		return title;
+	}
+
+	/**
+	* Returns the date of the event.
+	* @return 	date of the event.	
+	*/
+	public String date(){
+		return date;
+	}
+
+	/**
+	* Returns the total number of tickets of the event.
+	* @return 	tickets of the event.	
+	*/
+	public int tickets(){
+		return tickets;
+	}
+
+	/**
+	* Sets the title of the event.
+	* @param t 	title of the event.	
+	*/
+	public void title(String t){
+		title = t;
+	}
+
+	/**
+	* Sets the date of the event.
+	* @param d	date of the event.	
+	*/
+	public void date(String d){
+		date = d;
+	}
+
+	/**
+	* Returns the total number of tickets of the event.
+	* @return 	tickets of the event.	
+	*/
+	public void tickets(int t){
+		if(t<0){
+			throw new RuntimeException("The number of tickets for an event needs to be positive.");
+		}
+		tickets = t;
 	}
 
 	/**
@@ -25,7 +77,7 @@ public class Event{
 	* @return 	String representation of a Event.	
 	*/
 	public String toString(){
-		return "<Event: " + title + "(" + tickets+ " tickets)>";
+		return "<Event: " + title + " (" + tickets+ " tickets)>";
 	}
 
 }
