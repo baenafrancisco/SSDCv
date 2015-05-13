@@ -16,6 +16,9 @@ public class Event{
 	public Event(String n, String d, int t, AgeRestriction a){
 		title = n;
 		date = d;
+		if(t<0){
+			throw new RuntimeException("The number of tickets for an event needs to be positive.");
+		}
 		tickets = t;
 		ageRestriction = a;
 		comedians = new ArrayList<Comedian>();
