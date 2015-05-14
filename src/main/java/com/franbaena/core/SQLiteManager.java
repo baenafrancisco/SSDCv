@@ -136,11 +136,37 @@ public class SQLiteManager
    		return result;
    	}
 
-   	public boolean update(String database_table, Map<String, String> values){
-   		// TODO
-   		return false;
+      /**
+      * Updates a record in a table by id.
+      * @param database_table name of the database table
+      * @param id id of the record to update
+      * @param values  values to update
+      *
+      * @return  the result of the update.
+      */
+   	public boolean update(String database_table, int id, Map<String, String> values){
+         boolean result = false;
+         if (values.keySet().size()>0){
+            try{
+               StringJoiner updates = new StringJoiner(", ");
+               for (String s: values.keySet()){
+                  updates.add(s + " = '" + values.get(s) + "'");
+               }
+               String sql = "UPDATE " + database_table + " SET " + updates.toString() + " WHERE id = " + id + ";";
+               Statement stmt = c.createStatement();
+               int rows = stmt.executeUpdate(sql);
+               if (rows==1){
+                  result = true;
+               }
+            } catch (Exception e){
+               System.out.println("An exception ocurred trying to insert to the table" + database_table);
+               e.printStackTrace(System.out);
+               System.exit(1);
+            }
+         }
+         return result;
    	}
-      
+
       /**
       * Deletes a record from a table by id.
       * @param database_table name of the database table
