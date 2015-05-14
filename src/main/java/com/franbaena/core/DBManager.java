@@ -20,8 +20,9 @@ public interface DBManager{
 	public List<Map<String, Object>> select(String database_table);
 	public List<Map<String, Object>> select(String database_table, String[] columns);
 	public List<Map<String, Object>> select(String database_table, String[] columns, String where);
-	public boolean insert(String database_table, Map<String, String> values);
+	public int insert(String database_table, Map<String, String> values);
 	public boolean update(String database_table, Map<String, String> values);
 	public boolean delete(String database_table, int id);
 	public boolean exists(String database_table, int id);
+	public boolean create_table(String name, Map<String,String> columns);
 }
