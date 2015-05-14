@@ -10,20 +10,24 @@ import javax.swing.*;
 public class MainView extends JPanel implements MainViewInterface{
 
 
-	private JLabel l;
+	private	JTabbedPane tabbedPane;
+	private	JPanel panel1;
+	private	JPanel panel2;
+	//private JLabel l;
 	public MainView(){
-
-		setLayout(new FlowLayout());
-		l = new JLabel("Hello world?");
-		add(l);
-
+		setLayout(new BorderLayout());
+		panel1 = new BoxOfficeView();
+		panel2 = new BoxOfficeView();
+		
+		tabbedPane = new JTabbedPane();
+		tabbedPane.addTab( "Box Office", panel1 );
+		tabbedPane.addTab( "Manager", panel2 );
+		add( tabbedPane, BorderLayout.CENTER );
 	}
+
 
 	public void controller(ActionListener c){
 		//TODO
 	}
 
-	public void changeView(String s){
-		//TODO
-	}
 }

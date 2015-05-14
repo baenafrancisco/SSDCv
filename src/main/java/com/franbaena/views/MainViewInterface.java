@@ -6,5 +6,4 @@ public interface MainViewInterface {
 	public static String BOXOFFICE = "BOXOFFICE";
 
 	public void controller(ActionListener c);
-	public void changeView(String s);
 }
