@@ -1,17 +1,22 @@
 package com.franbaena.models;
+import com.franbaena.core.BaseModel;
 import java.util.*;
 
 /**
  * Represents an Event.
  * @author Francisco Baena (baena.francisco@gmail.com)
  */
-public class Event{
+public class Event extends BaseModel{
 
 	private String title;
 	private String date; // SQLite DB stores date as strings
 	private List<Comedian> comedians;
 	private int tickets;
 	private AgeRestriction ageRestriction;
+
+	public Event(int id){
+		get(id);
+	}
 
 	public Event(String n, String d, int t, AgeRestriction a){
 		title = n;
@@ -73,6 +78,27 @@ public class Event{
 			throw new RuntimeException("The number of tickets for an event needs to be positive.");
 		}
 		tickets = t;
+	}
+
+	/**
+	* Adds a comedian to the event.
+	* @param comedian comedian object	
+	*/
+	public void addComedian(Comedian c){
+		comedians.add(c);
+	}
+
+	@Override
+	protected void get(int id){
+		Map<String, String> dbobjects = super.getFromDB(id);
+		if (dbobjects!=null){
+			super.id((int) Integer.parseInt(dbobjects.get("id")));
+			title(dbobjects.get("title"));
+			date(dbobjects.get("date"));
+			tickets((int) Integer.parseInt(dbobjects.get("tickets")));
+			ageRestriction = AgeRestriction.valueOf(dbobjects.get("agerestriction"));
+			comedians = new ArrayList<Comedian>();
+		}
 	}
 
 	/**

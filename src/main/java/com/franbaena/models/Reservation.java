@@ -1,14 +1,20 @@
 package com.franbaena.models;
+import com.franbaena.core.BaseModel;
+import java.util.*;
 
 /**
  * Represents a Reservation.
  * @author Francisco Baena (baena.francisco@gmail.com)
  */
-public class Reservation{
+public class Reservation extends BaseModel{
 
 	private Event event;
 	private String telephone;
 	private int tickets;
+
+	public Reservation(int id){
+		get(id);
+	}
 
 	public Reservation(Event e, String tel, int t){
 		event = e;
@@ -68,6 +74,21 @@ public class Reservation{
 			throw new RuntimeException("The number of tickets can't be negative.");
 		}
 		tickets = t;
+	}
+
+	/**
+	* Gets an object by id from the database.
+	* @param id	id of the object to be fetched
+	*/
+	@Override
+	protected void get(int id){
+		Map<String, String> dbobjects = super.getFromDB(id);
+		if (dbobjects!=null){
+			super.id((int) Integer.parseInt(dbobjects.get("id")));
+			telephone(dbobjects.get("telephone"));
+			tickets((int) Integer.parseInt(dbobjects.get("tickets")));
+			Event e = new Event((int) Integer.parseInt(dbobjects.get("event_id")));
+		}
 	}
 
 	/**
