@@ -25,4 +25,5 @@ public interface DBManager{
 	public boolean delete(String database_table, int id);
 	public boolean exists(String database_table, int id);
 	public boolean create_table(String name, Map<String,String> columns);
+	public boolean drop_table(String database_table);
 }

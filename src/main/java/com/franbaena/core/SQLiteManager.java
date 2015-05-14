@@ -159,7 +159,7 @@ public class SQLiteManager
                   result = true;
                }
             } catch (Exception e){
-               System.out.println("An exception ocurred trying to insert to the table" + database_table);
+               System.out.println("An exception ocurred trying to insert to the table " + database_table);
                e.printStackTrace(System.out);
                System.exit(1);
             }
@@ -228,17 +228,40 @@ public class SQLiteManager
                for (String c: columns.keySet()){
                   cols.add(c + " " + columns.get(c));
                }
-               String sql = "CREATE TABLE IF NOT EXISTS " + name + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "+ cols.toString() + ")";
+               String sql = "CREATE TABLE IF NOT EXISTS " + name + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "+ cols.toString() + ");";
                Statement stmt = c.createStatement();
                stmt.executeUpdate(sql);
                result = true;
             } catch (Exception e){
-               System.out.println("An exception ocurred trying to create the table" + name);
+               System.out.println("An exception ocurred trying to create the table " + name);
                e.printStackTrace(System.out);
                System.exit(1);
             }
          }
          
+         return result;
+      }
+
+      /**
+      * Creates a database table.
+      * 
+      * @param name  new table name
+      * @param columns  map of columns related to the column type
+      *
+      * @return   result of the creation.
+      */
+      public boolean drop_table(String database_table){
+         boolean result = false;
+         try{
+            String sql = "DROP TABLE IF EXISTS " + database_table + ";";
+            Statement stmt = c.createStatement();
+            stmt.executeUpdate(sql);
+            result = true;
+         } catch (Exception e){
+            System.out.println("An exception ocurred trying to delete the table" + database_table);
+            e.printStackTrace(System.out);
+            System.exit(1);
+         }
          return result;
       }
 }
