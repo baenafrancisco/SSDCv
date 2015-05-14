@@ -1,6 +1,8 @@
 package com.franbaena.models;
 import com.franbaena.core.BaseModel;
 import java.util.*;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Represents an Event.
@@ -88,6 +90,10 @@ public class Event extends BaseModel{
 		comedians.add(c);
 	}
 
+	public List<Comedian> comedians(){
+		return comedians;
+	}
+
 	@Override
 	protected void get(int id){
 		Map<String, String> dbobjects = super.getFromDB(id);
@@ -98,6 +104,12 @@ public class Event extends BaseModel{
 			tickets((int) Integer.parseInt(dbobjects.get("tickets")));
 			ageRestriction = AgeRestriction.valueOf(dbobjects.get("agerestriction"));
 			comedians = new ArrayList<Comedian>();
+			try{
+				JSONArray com_ids = new JSONArray(dbobjects.get("comedians_ids"));
+				for(int i=0; i<com_ids.length(); i++){
+					comedians.add(new Comedian(com_ids.getInt(i)));
+            	}
+			} catch (JSONException e){}
 		}
 	}
 
