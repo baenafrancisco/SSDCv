@@ -17,9 +17,10 @@ import java.util.*;
  */
 
 public interface DBManager{
-	public List<Map<String, Object>> select(String database_table);
-	public List<Map<String, Object>> select(String database_table, String[] columns);
-	public List<Map<String, Object>> select(String database_table, String[] columns, String where);
+	public List<Map<String, String>> select(String database_table);
+	public List<Map<String, String>> select(String database_table, String where);
+	public List<Map<String, String>> select(String database_table, String[] columns);
+	public List<Map<String, String>> select(String database_table, String[] columns, String where);
 	public int insert(String database_table, Map<String, String> values);
 	public boolean update(String database_table, int id, Map<String, String> values);
 	public boolean delete(String database_table, int id);

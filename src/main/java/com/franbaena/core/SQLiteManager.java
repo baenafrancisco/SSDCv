@@ -33,7 +33,7 @@ public class SQLiteManager
    		}
    	}
 
-   	public List<Map<String, Object>> select(String database_table, String[] columns, String where){
+   	public List<Map<String, String>> select(String database_table, String[] columns, String where){
    	/** 
 		* Selects values from a database table
 		*
@@ -45,7 +45,7 @@ public class SQLiteManager
 		* 
    	*/
 
-		   List<Map<String, Object>> response = new ArrayList<Map<String, Object>>();
+		   List<Map<String, String>> response = new ArrayList<Map<String, String>>();
    		String sql;
    		Statement stmt;
    		ResultSetMetaData rsmd;
@@ -61,7 +61,11 @@ public class SQLiteManager
 	   			}
 	   			sql += ";";
 	   		} else {
-	   			sql = "SELECT * FROM " + database_table + ";";
+	   			sql = "SELECT * FROM " + database_table;
+               if (where!=null){
+                  sql += " WHERE " + where;
+               }
+               sql += ";";
 	   		}
 
 	   		stmt = c.createStatement();
@@ -69,10 +73,10 @@ public class SQLiteManager
 	   		rsmd = rs.getMetaData();
 	   		numberOfColumns = rsmd.getColumnCount();
 	   		while(rs.next()) {
-	   			Map<String, Object> result = new TreeMap<String, Object>();
+	   			Map<String, String> result = new TreeMap<String, String>();
 	   			// Result set columns start at 1!
 	   			for (int i=1; i<=numberOfColumns; i++){
-	   				result.put(rsmd.getColumnName(i), rs.getObject(i));
+	   				result.put(rsmd.getColumnName(i), rs.getString(i));
 	   			}
 	   			response.add(result);
 	    	   }
@@ -88,7 +92,7 @@ public class SQLiteManager
       /** 
       * Selects all values from the database table
       */
-   	public List<Map<String, Object>> select(String database_table){
+   	public List<Map<String, String>> select(String database_table){
    		
    		return select(database_table, null, null);
    	}
@@ -96,10 +100,17 @@ public class SQLiteManager
       /** 
       * Selects certain columns from the database table
       */
-   	public  List<Map<String, Object>> select(String database_table, String[] columns){
+   	public  List<Map<String, String>> select(String database_table, String[] columns){
    		
    		return select(database_table, columns, null);
    	}
+
+      /** 
+      * Selects certain rows from the database table.
+      */
+      public  List<Map<String, String>> select(String database_table, String where){
+         return select(database_table, null, where);
+      }
 
       /**
       * Inserts a record in an specified table
