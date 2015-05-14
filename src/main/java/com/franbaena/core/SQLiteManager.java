@@ -192,8 +192,22 @@ public class SQLiteManager
    	}
 
    	public boolean exists(String database_table, int id){
-   		// TODO
-   		return false;
+   		boolean result = false;
+         try{
+            String sql = "SELECT EXISTS(SELECT 1 FROM " + database_table + " WHERE id=" + id + " LIMIT 1);";
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+            if (rs.getInt(1)==1){
+               result = true;
+            }
+            
+         } catch (Exception e){
+            System.out.println("An exception ocurred trying to create the table" + database_table);
+            e.printStackTrace(System.out);
+            System.exit(1);
+         }
+         return result;
    	}
 
       /**
