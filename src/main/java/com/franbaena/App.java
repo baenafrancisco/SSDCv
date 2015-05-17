@@ -11,9 +11,9 @@ import javax.swing.JPanel;
  */
 public class App{
     public static void main( String[] args ){
-        MainViewInterface mainView = new MainView();
-		ActionListener controller = new MainController(mainView);
-		mainView.controller(controller);
+        MainView mainView = new MainView();
+		/*ActionListener controller = new MainController(mainView);
+		mainView.controller(controller);*/
 		JFrame window = new JFrame("Comedy Venue MGMT");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setContentPane((JPanel) mainView);

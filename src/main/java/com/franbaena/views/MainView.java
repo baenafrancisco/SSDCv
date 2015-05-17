@@ -1,4 +1,5 @@
 package com.franbaena.views;
+import com.franbaena.controllers.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -7,7 +8,7 @@ import javax.swing.*;
  * Represents the main view.
  * @author Francisco Baena (baena.francisco@gmail.com)
  */
-public class MainView extends JPanel implements MainViewInterface{
+public class MainView extends JPanel{
 
 
 	private	JTabbedPane tabbedPane;
@@ -16,18 +17,19 @@ public class MainView extends JPanel implements MainViewInterface{
 	//private JLabel l;
 	public MainView(){
 		setLayout(new BorderLayout());
-		panel1 = new BoxOfficeView();
-		panel2 = new BoxOfficeView();
+		BoxOfficeInterface bo_view = new BoxOfficeView();
+		BoxOfficeController bo_view_controller = new BoxOfficeController( bo_view );
+		bo_view.controller(bo_view_controller);
+
+		ManagerInterface ma_view = new ManagerView();
+		ManagerController ma_view_controller = new ManagerController( ma_view );
+		ma_view.controller(ma_view_controller);
 		
 		tabbedPane = new JTabbedPane();
-		tabbedPane.addTab( "Box Office", panel1 );
-		tabbedPane.addTab( "Manager", panel2 );
+		tabbedPane.addTab( "Box Office", (JPanel) bo_view );
+		tabbedPane.addTab( "Manager", (JPanel) ma_view );
 		add( tabbedPane, BorderLayout.CENTER );
 	}
 
-
-	public void controller(ActionListener c){
-		//TODO
-	}
 
 }
