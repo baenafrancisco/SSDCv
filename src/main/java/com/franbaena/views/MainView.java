@@ -12,9 +12,7 @@ public class MainView extends JPanel{
 
 
 	private	JTabbedPane tabbedPane;
-	private	JPanel panel1;
-	private	JPanel panel2;
-	//private JLabel l;
+
 	public MainView(){
 		setLayout(new BorderLayout());
 		BoxOfficeInterface bo_view = new BoxOfficeView();
