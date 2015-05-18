@@ -1,7 +1,8 @@
 package com.franbaena.controllers;
+import java.util.*;
 import com.franbaena.models.*;
 import com.franbaena.views.*;
-import java.util.*;
+import com.franbaena.core.EventStorage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -17,19 +18,15 @@ public class ManagerController implements ActionListener, ListSelectionListener{
   		
 
 	private ManagerInterface view;
-	private List<Event> events;
+	private EventStorage storage;
 	private Event current;
 
 	public ManagerController(ManagerInterface v){
 		view = v;
-		start();
-	}
-
-	public void start(){
-		showAllEvents();
+		storage = EventStorage.getInstance();
+		showAllEvents(); // Shows all event in the interface
 		current = null;
 	}
-
 
 	public void actionPerformed(ActionEvent e){
 		String cmd = e.getActionCommand();
@@ -37,7 +34,33 @@ public class ManagerController implements ActionListener, ListSelectionListener{
 			current = null;
 			view.cleanToCreate();
 		} else if (cmd == ManagerInterface.SAVE){
-			
+
+			Map<String, Object> toSave = view.getInputData();
+			// TODO: validation
+			if (current==null){
+				//Save new event
+				Event n = new Event((String) toSave.get("title"),
+								 (String) toSave.get("date"), 
+								 (int) Integer.parseInt((String) toSave.get("tickets")), 
+								 (AgeRestriction) toSave.get("agerestriction"));
+
+				//TODO: add comedians
+
+				n.save(); // Saves the new event
+				view.cleanToCreate(); // Cleans the view
+				storage.events.add(n); // Adds the new event
+
+			} else {
+				current.title((String) toSave.get("title"));
+				current.date((String) toSave.get("date"));
+				current.tickets((int)Integer.parseInt((String) toSave.get("tickets")));
+				current.ageRestriction((AgeRestriction) toSave.get("agerestriction"));
+				//TODO: add comedians
+				current.save();
+			}
+			showAllEvents(); // Reloads all events
+
+			// Show notification?
 		}
 
 	}
@@ -48,8 +71,7 @@ public class ManagerController implements ActionListener, ListSelectionListener{
   	*/
 	public List<String> allEvents(){
 		List<String> list = new ArrayList<String>();
-		events = Event.getAll();
-		for (Event e: events){
+		for (Event e: storage.events){
 			list.add(e.title());
 		}
 		return list;
@@ -75,13 +97,14 @@ public class ManagerController implements ActionListener, ListSelectionListener{
   	*/
   	public void displayEvent(int i){
   		// Sets the current event
-  		current = events.get(i);
-  		view.displayEvent(	current.title(), 
-  							current.date(), 
-  							current.comedianNames(), 
-  							current.ageRestriction(), 
-  							((Integer) current.tickets()).toString() );
-
+  		if (i>=0 && i<storage.events.size()){
+  			current = storage.events.get(i);
+	  		view.displayEvent(	current.title(), 
+	  							current.date(), 
+	  							current.comedianNames(), 
+	  							current.ageRestriction(), 
+	  							((Integer) current.tickets()).toString() );
+  		}
   	}
 	
 }

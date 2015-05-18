@@ -184,4 +184,16 @@ public class ManagerView extends JPanel implements ManagerInterface{
 		saveBtn.setText("Save new event!");
 
 	}
+
+	public Map<String, Object> getInputData(){
+
+		Map<String, Object> response = new HashMap<String, Object>();
+		response.put("title", eventTitle.getText());
+		response.put("date", eventDate.getText());
+		response.put("agerestriction", ageRestriction.getSelectedItem());
+		response.put("tickets", ticketsLeft.getText());
+		response.put("comedians", comediansModel.toArray());
+
+		return response;
+	}
 }

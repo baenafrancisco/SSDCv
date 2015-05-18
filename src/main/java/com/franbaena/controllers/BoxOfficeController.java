@@ -1,7 +1,8 @@
 package com.franbaena.controllers;
+import java.util.*;
 import com.franbaena.models.*;
 import com.franbaena.views.*;
-import java.util.*;
+import com.franbaena.core.EventStorage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -17,10 +18,11 @@ public class BoxOfficeController implements ActionListener, ListSelectionListene
   		
 
 	private BoxOfficeInterface view;
-	private List<Event> events;
+	private EventStorage storage;
 
 	public BoxOfficeController(BoxOfficeInterface v){
 		view = v;
+		storage = EventStorage.getInstance();
 		start();
 	}
 
@@ -40,15 +42,14 @@ public class BoxOfficeController implements ActionListener, ListSelectionListene
   	*/
 	public List<String> allEvents(){
 		List<String> list = new ArrayList<String>();
-		events = Event.getAll();
-		for (Event e: events){
+		for (Event e: storage.events){
 			list.add(e.title());
 		}
 		return list;
 	}
 
 	/**
-  	* Displays all events in the Events list
+  	* Displays all storage.events in the Events list
   	*/
 	public void showAllEvents(){
 		view.loadEvents(allEvents());
@@ -66,12 +67,14 @@ public class BoxOfficeController implements ActionListener, ListSelectionListene
   	* @param i 	index of the event
   	*/
   	public void displayEvent(int i){
-  		Event e = events.get(i);
-  		view.displayEvent(	e.title(), 
-  							e.date(), 
-  							e.comedianNames(), 
-  							e.ageRestriction().toString(), 
-  							((Integer) e.tickets()).toString() );
+  		if (i>=0 && i<storage.events.size()){
+	  		Event e = storage.events.get(i);
+	  		view.displayEvent(	e.title(), 
+	  							e.date(), 
+	  							e.comedianNames(), 
+	  							e.ageRestriction().toString(), 
+	  							((Integer) e.tickets()).toString() );
+  		}
   	}
 	
 }
