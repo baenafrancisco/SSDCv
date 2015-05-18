@@ -20,7 +20,7 @@ public class MainView extends JPanel{
 		bo_view.controller(bo_view_controller);
 
 		ManagerInterface ma_view = new ManagerView();
-		ManagerController ma_view_controller = new ManagerController( ma_view );
+		ManagerController ma_view_controller = new ManagerController( ma_view, bo_view_controller );
 		ma_view.controller(ma_view_controller);
 		
 		tabbedPane = new JTabbedPane();

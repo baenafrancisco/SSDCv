@@ -20,12 +20,14 @@ public class ManagerController implements ActionListener, ListSelectionListener{
 	private ManagerInterface view;
 	private EventStorage storage;
 	private Event current;
+	private BoxOfficeController bo;
 
-	public ManagerController(ManagerInterface v){
+	public ManagerController(ManagerInterface v, BoxOfficeController b){
 		view = v;
 		storage = EventStorage.getInstance();
 		showAllEvents(); // Shows all event in the interface
 		current = null;
+		bo = b;
 	}
 
 	public void actionPerformed(ActionEvent e){
@@ -58,7 +60,10 @@ public class ManagerController implements ActionListener, ListSelectionListener{
 				//TODO: add comedians
 				current.save();
 			}
-			showAllEvents(); // Reloads all events
+			showAllEvents(); // Reloads all events in this window
+			if (bo!=null){
+				bo.showAllEvents();  // Reloads all events in the BoxOffice Panel
+			}
 
 			// Show notification?
 		}
