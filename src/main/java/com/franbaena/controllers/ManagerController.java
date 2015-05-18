@@ -2,7 +2,7 @@ package com.franbaena.controllers;
 import java.util.*;
 import com.franbaena.models.*;
 import com.franbaena.views.*;
-import com.franbaena.core.EventStorage;
+import com.franbaena.core.ModelStorage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -18,13 +18,13 @@ public class ManagerController implements ActionListener, ListSelectionListener{
   		
 
 	private ManagerInterface view;
-	private EventStorage storage;
+	private ModelStorage storage;
 	private Event current;
 	private BoxOfficeController bo;
 
 	public ManagerController(ManagerInterface v, BoxOfficeController b){
 		view = v;
-		storage = EventStorage.getInstance();
+		storage = ModelStorage.getInstance();
 		showAllEvents(); // Shows all event in the interface
 		current = null;
 		bo = b;

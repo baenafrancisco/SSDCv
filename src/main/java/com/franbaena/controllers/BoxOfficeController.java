@@ -2,7 +2,7 @@ package com.franbaena.controllers;
 import java.util.*;
 import com.franbaena.models.*;
 import com.franbaena.views.*;
-import com.franbaena.core.EventStorage;
+import com.franbaena.core.ModelStorage;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ListSelectionEvent;
@@ -18,11 +18,11 @@ public class BoxOfficeController implements ActionListener, ListSelectionListene
   		
 
 	private BoxOfficeInterface view;
-	private EventStorage storage;
+	private ModelStorage storage;
 
 	public BoxOfficeController(BoxOfficeInterface v){
 		view = v;
-		storage = EventStorage.getInstance();
+		storage = ModelStorage.getInstance();
 		start();
 	}
 

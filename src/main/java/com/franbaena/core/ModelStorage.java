@@ -9,16 +9,16 @@ import java.util.*;
  *
  */
 
-public class EventStorage{
+public class ModelStorage{
 
-	private static EventStorage es = new EventStorage( );
+	private static ModelStorage es = new ModelStorage( );
 	public List<Event> events = Event.getAll();
 
-	private EventStorage(){
+	private ModelStorage(){
 	
 	}
 
-	public static EventStorage getInstance( ) {
+	public static ModelStorage getInstance( ) {
       return es;
    	}
 
