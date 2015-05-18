@@ -85,7 +85,7 @@ public abstract class BaseModel{
 				columns.put(f.getName()+"_ids", "TEXT" );
 			} else if ((superclass!=null)&&
 				(superclass.getTypeName().equals("com.franbaena.core.BaseModel"))){
-				// TODO: this id can be -1, then the model should be saved
+				// TODO: this id can be -1, then the model should be saved before
 				columns.put(f.getName()+"_id", "INTEGER" );
 			} else {
 				if (classname == "int"){
@@ -110,6 +110,7 @@ public abstract class BaseModel{
 		} 
 		return result;
 	}
+
 
 	protected abstract void get(int id);
 
