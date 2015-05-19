@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 /**
  * Main app
  * @author Francisco Baena (baena.francisco@gmail.com)
+ *
  */
 public class App{
     public static void main( String[] args ){
